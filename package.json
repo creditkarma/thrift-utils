@@ -1,6 +1,6 @@
 {
   "name": "@creditkarma/thrift-utils",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Utils functions for Thrift TypeScript",
   "main": "./dist/main/codec.js",
   "types": "./dist/main/codec.d.ts",

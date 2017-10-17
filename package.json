@@ -4,6 +4,9 @@
   "description": "Utils functions for Thrift TypeScript",
   "main": "./dist/main/codec.js",
   "types": "./dist/main/codec.d.ts",
+  "files": [
+    "dist/main"
+  ],
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
@@ -23,7 +26,7 @@
     "typescript"
   ],
   "author": "Nick Nance",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@creditkarma/thrift-typescript": "0.0.13",
     "@types/code": "^4.0.3",

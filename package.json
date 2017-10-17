@@ -2,7 +2,8 @@
   "name": "@creditkarma/thrift-utils",
   "version": "0.0.2",
   "description": "Utils functions for Thrift TypeScript",
-  "main": "./dist/index.js",
+  "main": "./dist/main/codec.js",
+  "types": "./dist/main/codec.d.ts",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
@@ -24,11 +25,11 @@
   "author": "Nick Nance",
   "license": "ISC",
   "devDependencies": {
-    "@creditkarma/thrift-typescript": "0.0.10",
+    "@creditkarma/thrift-typescript": "0.0.13",
     "@types/code": "^4.0.3",
     "@types/lab": "^11.1.0",
     "@types/node": "^8.0.34",
-    "@types/thrift": "^0.10.1",
+    "@types/thrift": "^0.10.3",
     "lab": "^14.3.1",
     "lab-transform-typescript": "^3.0.1",
     "rimraf": "^2.6.2",

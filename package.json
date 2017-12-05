@@ -9,8 +9,10 @@
   ],
   "scripts": {
     "lint": "tslint --fix './src/**/*.ts'",
+    "prebuild": "npm run codegen",
     "build": "tsc",
     "build:watch": "tsc --watch",
+    "precodegen": "npm run clean",
     "codegen": "thrift-typescript --rootDir ./ --sourceDir fixtures/thrift --outDir src/test/generated",
     "clean": "rimraf ./src/test/generated",
     "pretest": "npm run codegen",

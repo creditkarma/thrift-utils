@@ -1,6 +1,6 @@
 import { TBinaryProtocol, TBufferedTransport, TStructLike } from 'thrift'
 
-export interface TStructConstructor {
+export interface IStructConstructor {
     new (): TStructLike
 }
 
@@ -13,7 +13,7 @@ export const encoder = (thriftObject: TStructLike): Promise<Buffer> => {
     })
 }
 
-export const decoder = (buffer: string, ThriftClass: TStructConstructor): Promise<any> => {
+export const decoder = (buffer: string, ThriftClass: IStructConstructor): Promise<any> => {
     return new Promise((resolve, reject) => {
         const receiver = TBufferedTransport.receiver((transport, seqid) => {
             const input = new TBinaryProtocol(transport)

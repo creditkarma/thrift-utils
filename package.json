@@ -8,17 +8,18 @@
     "dist/main"
   ],
   "scripts": {
+    "clean": "rimraf ./src/test/generated dist/",
     "lint": "tslint --fix './src/**/*.ts'",
-    "prebuild": "npm run codegen",
+    "prebuild": "npm run clean && npm run codegen",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "precodegen": "npm run clean",
-    "codegen": "thrift-typescript --rootDir ./ --sourceDir fixtures/thrift --outDir src/test/generated",
-    "clean": "rimraf ./src/test/generated",
-    "pretest": "npm run codegen",
-    "test": "npm run lint && lab --coverage --coverage-path ./src/main --sourcemaps --transform node_modules/lab-transform-typescript ./src/test",
+    "codegen": "thrift-typescript --target thrift-server --rootDir ./ --sourceDir fixtures/thrift --outDir src/test/generated",
+    "pretest": "npm run build",
+    "test": "npm run lint && npm run test:only",
+    "test:only": "lab --ignore _asyncHook --coverage --coverage-path ./dist/main --sourcemaps ./dist/test",
     "test:watch": "watch 'npm test' ./src",
-    "coverage": "lab --coverage --sourcemaps -r console -o stdout -r html -o ./coverage/coverage.html ./dist/test",
+    "coverage": "lab --ignore _asyncHook --coverage --sourcemaps -r console -o stdout -r html -o ./coverage/coverage.html ./dist/test",
     "release:patch": "npm version patch && npm run release:publish",
     "release:minor": "npm version minor && npm run release:publish",
     "release:major": "npm version major && npm run release:publish",
@@ -26,24 +27,26 @@
   },
   "keywords": [
     "thrift",
-    "typescript"
+    "typescript",
+    "codec"
   ],
   "author": "Nick Nance",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@creditkarma/thrift-typescript": "0.0.13",
+    "@creditkarma/thrift-server-core": "^0.6.7",
+    "@creditkarma/thrift-typescript": "1.1.5",
     "@types/code": "^4.0.3",
     "@types/lab": "^11.1.0",
     "@types/node": "^8.0.34",
-    "@types/thrift": "^0.10.5",
+    "code": "^4.1.0",
     "lab": "^14.3.1",
     "lab-transform-typescript": "^3.0.1",
     "rimraf": "^2.6.2",
     "tslint": "^5.7.0",
-    "typescript": "^2.5.3",
+    "typescript": "^2.8.1",
     "watch": "^1.0.2"
   },
-  "dependencies": {
-    "thrift": "^0.10.0"
+  "peerDependencies": {
+    "@creditkarma/thrift-server-core": "^0.6.7"
   }
 }

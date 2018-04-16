@@ -12,7 +12,7 @@ import { Metadata } from './generated/com/creditkarma/common/metadata'
 describe('codec', () => {
     let buffer: Buffer
     describe('when encoding Thrift object', () => {
-        const metadata = new Metadata({appId: 'thrift-utils', traceId: '1234'})
+        const metadata = new Metadata({ appId: 'thrift-utils', traceId: '1234' })
         it('resulting buffer has proper length', async () => {
             buffer = await encoder(metadata)
             expect(buffer.length).to.equal(31)

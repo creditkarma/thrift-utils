@@ -25,4 +25,20 @@ describe('codec', () => {
             expect(metadata.traceId).to.equal('1234')
         })
     })
+
+    let compactBuffer: Buffer
+    describe('when encoding Thrift Object with compact protocol', () => {
+        const metadata = new Metadata({appId: 'thrift-utils', traceId: '123'})
+        it('resulting buffer has proper length', async () => {
+            compactBuffer = await encoder(metadata, true)
+            expect(compactBuffer.length).to.equal(20)
+        })
+    })
+
+    describe('when decoding Thrift object with compact protocol', () => {
+        it('resulting Thrift object should have a traceId with the proper value', async () => {
+            const metadata = await decoder(compactBuffer.toString(), Metadata, true)
+            expect(metadata.traceId).to.equal('123')
+        })
+    })
 })

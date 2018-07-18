@@ -1,15 +1,21 @@
-import { BinaryProtocol, BufferedTransport,
-    CompactProtocol, StructLike, TProtocol } from '@creditkarma/thrift-server-core'
+import { BinaryProtocol,
+    BufferedTransport,
+    CompactProtocol,
+    IProtocolConstructor,
+    StructLike,
+    TProtocol,
+} from '@creditkarma/thrift-server-core'
 
 export interface IStructConstructor<T extends StructLike> {
     new (args?: any): T
     read(input: TProtocol): T
 }
 
-export const encoder = (thriftObject: StructLike, useCompactProtocol: boolean = false): Promise<Buffer> => {
+export const encoder = (thriftObject: StructLike,
+                        ProtocolType: IProtocolConstructor = BinaryProtocol): Promise<Buffer> => {
     return new Promise((resolve, reject) => {
         const transport = new BufferedTransport(Buffer.from(''))
-        const protocol = useCompactProtocol ? new CompactProtocol(transport) : new BinaryProtocol(transport)
+        const protocol =  new ProtocolType(transport)
         thriftObject.write(protocol)
         resolve(protocol.flush())
     })
@@ -17,10 +23,10 @@ export const encoder = (thriftObject: StructLike, useCompactProtocol: boolean = 
 
 export function decoder<T extends StructLike>(buffer: string,
                                               ThriftClass: IStructConstructor<T>,
-                                              useCompactProtocol: boolean = false): Promise<any> {
+                                              ProtocolType: IProtocolConstructor = BinaryProtocol): Promise<any> {
     return new Promise((resolve, reject) => {
         const receiver: BufferedTransport = BufferedTransport.receiver(Buffer.from(buffer))
-        const input = useCompactProtocol ? new CompactProtocol(receiver) :  new BinaryProtocol(receiver)
+        const input = new ProtocolType(receiver)
         const decoded = ThriftClass.read(input)
         resolve(decoded)
     })

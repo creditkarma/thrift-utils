@@ -7,6 +7,7 @@ export { lab }
 
 import { decoder, encoder } from '../main/codec'
 
+import { CompactProtocol } from '@creditkarma/thrift-server-core'
 import { Metadata } from './generated/com/creditkarma/common/metadata'
 
 describe('codec', () => {
@@ -30,14 +31,14 @@ describe('codec', () => {
     describe('when encoding Thrift Object with compact protocol', () => {
         const metadata = new Metadata({appId: 'thrift-utils', traceId: '123'})
         it('resulting buffer has proper length', async () => {
-            compactBuffer = await encoder(metadata, true)
+            compactBuffer = await encoder(metadata, CompactProtocol)
             expect(compactBuffer.length).to.equal(20)
         })
     })
 
     describe('when decoding Thrift object with compact protocol', () => {
         it('resulting Thrift object should have a traceId with the proper value', async () => {
-            const metadata = await decoder(compactBuffer.toString(), Metadata, true)
+            const metadata = await decoder(compactBuffer.toString(), Metadata, CompactProtocol)
             expect(metadata.traceId).to.equal('123')
         })
     })

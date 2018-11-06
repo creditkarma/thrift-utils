@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "clean": "rimraf ./src/test/generated dist/",
+    "clean-all": "npm run clean && rimraf node_modules/ package-lock.json",
     "lint": "tslint --fix './src/**/*.ts'",
     "prebuild": "npm run clean && npm run codegen",
     "build": "tsc",
@@ -34,7 +35,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@creditkarma/thrift-server-core": "^0.7.3",
-    "@creditkarma/thrift-typescript": "1.1.5",
+    "@creditkarma/thrift-typescript": "^1.1.5",
     "@types/code": "^4.0.3",
     "@types/lab": "^11.1.0",
     "@types/node": "^8.0.34",
@@ -42,9 +43,8 @@
     "lab": "^14.3.1",
     "lab-transform-typescript": "^3.0.1",
     "rimraf": "^2.6.2",
-    "tslint": "^5.7.0",
-    "typescript": "^2.8.1",
-    "watch": "^1.0.2"
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.x"
   },
   "peerDependencies": {
     "@creditkarma/thrift-server-core": "^0.7.3"

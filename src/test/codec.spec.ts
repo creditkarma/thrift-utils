@@ -8,7 +8,7 @@ export { lab }
 import { decoder, encoder } from '../main/codec'
 
 import { CompactProtocol } from '@creditkarma/thrift-server-core'
-import { Metadata } from './generated/com/creditkarma/common/metadata'
+import { Metadata } from './generated/com/creditkarma/common'
 
 describe('codec', () => {
     let buffer: Buffer

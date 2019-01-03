@@ -1,6 +1,5 @@
 import { BinaryProtocol,
     BufferedTransport,
-    CompactProtocol,
     IProtocolConstructor,
     StructLike,
     TProtocol,
@@ -11,8 +10,10 @@ export interface IStructConstructor<T extends StructLike> {
     read(input: TProtocol): T
 }
 
-export const encoder = (thriftObject: StructLike,
-                        ProtocolType: IProtocolConstructor = BinaryProtocol): Promise<Buffer> => {
+export function encoder(
+    thriftObject: StructLike,
+    ProtocolType: IProtocolConstructor = BinaryProtocol,
+): Promise<Buffer> {
     return new Promise((resolve, reject) => {
         const transport = new BufferedTransport(Buffer.from(''))
         const protocol =  new ProtocolType(transport)
@@ -21,9 +22,11 @@ export const encoder = (thriftObject: StructLike,
     })
 }
 
-export function decoder<T extends StructLike>(buffer: string,
-                                              ThriftClass: IStructConstructor<T>,
-                                              ProtocolType: IProtocolConstructor = BinaryProtocol): Promise<any> {
+export function decoder<T extends StructLike>(
+    buffer: string,
+    ThriftClass: IStructConstructor<T>,
+    ProtocolType: IProtocolConstructor = BinaryProtocol,
+): Promise<T> {
     return new Promise((resolve, reject) => {
         const receiver: BufferedTransport = BufferedTransport.receiver(Buffer.from(buffer))
         const input = new ProtocolType(receiver)

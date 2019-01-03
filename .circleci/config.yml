@@ -1,7 +1,7 @@
 defaults: &defaults
   working_directory: ~/thrift-utils
   docker:
-    - image: circleci/node:6.10.3
+    - image: circleci/node:8.9.4
 
 version: 2
 jobs:
@@ -65,6 +65,7 @@ workflows:
             filters:
               tags:
                 only: /.*/
+
         - build:
             requires:
               - test
@@ -73,6 +74,7 @@ workflows:
                 only: /(v)?[0-9]+(\.[0-9]+)*/
               branches:
                 ignore: /.*/
+
         - publish:
             requires:
               - build

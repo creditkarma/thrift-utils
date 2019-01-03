@@ -2,8 +2,8 @@
   "name": "@creditkarma/thrift-utils",
   "version": "0.0.7",
   "description": "Utils functions for Thrift TypeScript",
-  "main": "./dist/main/codec.js",
-  "types": "./dist/main/codec.d.ts",
+  "main": "./dist/main/index.js",
+  "types": "./dist/main/index.d.ts",
   "files": [
     "dist/main"
   ],
@@ -18,13 +18,9 @@
     "codegen": "thrift-typescript --target thrift-server --rootDir ./ --sourceDir fixtures/thrift --outDir src/test/generated",
     "pretest": "npm run build",
     "test": "npm run lint && npm run test:only",
-    "test:only": "lab --ignore _asyncHook --coverage --coverage-path ./dist/main --sourcemaps ./dist/test",
+    "test:only": "lab --coverage --coverage-path ./dist/main --sourcemaps ./dist/test",
     "test:watch": "watch 'npm test' ./src",
-    "coverage": "lab --ignore _asyncHook --coverage --sourcemaps -r console -o stdout -r html -o ./coverage/coverage.html ./dist/test",
-    "release:patch": "npm version patch && npm run release:publish",
-    "release:minor": "npm version minor && npm run release:publish",
-    "release:major": "npm version major && npm run release:publish",
-    "release:publish": "git push --follow-tags"
+    "coverage": "lab --coverage --sourcemaps -r console -o stdout -r html -o ./coverage/coverage.html ./dist/test"
   },
   "keywords": [
     "thrift",
@@ -34,19 +30,17 @@
   "author": "Nick Nance",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@creditkarma/thrift-server-core": "^0.7.3",
-    "@creditkarma/thrift-typescript": "^1.1.5",
-    "@types/code": "^4.0.3",
-    "@types/lab": "^11.1.0",
+    "@creditkarma/thrift-server-core": "^0.11.1",
+    "@creditkarma/thrift-typescript": "^3.0.3",
+    "@types/code": "^4.0.5",
     "@types/node": "^8.0.34",
-    "code": "^4.1.0",
-    "lab": "^14.3.1",
-    "lab-transform-typescript": "^3.0.1",
-    "rimraf": "^2.6.2",
-    "tslint": "^5.11.0",
-    "typescript": "^3.1.x"
+    "code": "^5.2.4",
+    "lab": "^18.0.1",
+    "rimraf": "^2.6.3",
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.x"
   },
   "peerDependencies": {
-    "@creditkarma/thrift-server-core": "^0.7.3"
+    "@creditkarma/thrift-server-core": "0.11.x"
   }
 }
